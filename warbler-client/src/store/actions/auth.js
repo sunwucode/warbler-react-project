@@ -1,4 +1,4 @@
-import { apiCall } from "../../services/api";
+import { apiCall, SetTokenHeader } from "../../services/api";
 import { SET_CURRENT_USER } from "../actionTypes";
 import { addError, removeError } from "./errors";
 
@@ -8,6 +8,17 @@ export function setCurrentUser(user) {
     type: SET_CURRENT_USER,
     user
   };
+}
+
+export function logout(){
+  return dispacth => {
+    localStorage.clear();
+    dispacth(setCurrentUser({}));
+  };
+}
+
+export function setAuthorizationToken(token){
+  SetTokenHeader(token);
 }
 
 export function authUser(type, userData) {
